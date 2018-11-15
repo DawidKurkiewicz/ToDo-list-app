@@ -4,7 +4,6 @@ class ToDo {
         this.container = document.querySelector(container) || document.body
         this.render()
         this.init()
-
     }
     init() {
         this.render()
@@ -15,10 +14,8 @@ class ToDo {
     }
     render() {
         this.container.innerHTML = ''
-        const list = document.createElement('ul')
-
         this.elements()
-
+        const list = document.createElement('ul')
         this.tasks.forEach((task, i) => {
             const listitem = document.createElement('li')
             listitem.innerText = task.text
@@ -44,19 +41,34 @@ class ToDo {
     }
     elements() {
         const input = document.createElement('input')
-        document.body.appendChild(input)
+        this.container.appendChild(input)
         const addTaskButt = document.createElement('button')
         addTaskButt.innerText = 'add task'
         addTaskButt.addEventListener('click', () => this.addTask(input.value))
-        document.body.appendChild(addTaskButt)
+        this.container.appendChild(addTaskButt)
+        const compButt = document.createElement('button')
+        compButt.innerText = "done"
+        compButt.addEventListener('click', () => this.TasksComp())
+        this.container.appendChild(compButt)
+        const unCompButt = document.createElement('button')
+        unCompButt.innerText = "undone"
+        unCompButt.addEventListener('click', () => this.TasksUnComp())
+        this.container.appendChild(unCompButt)
+        const allButt = document.createElement('button')
+        allButt.innerText = "all"
+        allButt.addEventListener('click', () => this.render())
+        this.container.appendChild(allButt)
+        const search = document.createElement('input')
+        this.container.appendChild(search)
+        const searchButt = document.createElement('button')
+        searchButt.innerText = 'search'
+        this.container.appendChild(searchButt)
     }
-
 }
 class Task {
     constructor(text) {
         this.text = text
         this.isCompleted = false
-
     }
 }
 const ToDo1 = new ToDo()
