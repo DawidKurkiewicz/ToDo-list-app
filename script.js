@@ -14,11 +14,13 @@ class ToDo {
     }
     render() {
         this.container.innerHTML = ''
+
         this.elements()
         const list = document.createElement('ul')
         this.tasks.forEach((task, i) => {
             const listitem = document.createElement('li')
             listitem.innerText = task.text
+            localStorage.setItem(i, task)
             const butt = document.createElement('button')
             butt.innerText = 'remove'
             list.appendChild(listitem)
@@ -34,8 +36,10 @@ class ToDo {
             })
             butt.addEventListener("click", () => {
                 this.tasks.splice(i, 1);
+                localStorage.removeItem(i)
                 this.render();
             })
+
         })
         this.container.appendChild(list)
     }
@@ -48,11 +52,11 @@ class ToDo {
         this.container.appendChild(addTaskButt)
         const compButt = document.createElement('button')
         compButt.innerText = "done"
-        compButt.addEventListener('click', () => this.TasksComp())
+        compButt.addEventListener('click', () => this.tasksComp())
         this.container.appendChild(compButt)
         const unCompButt = document.createElement('button')
         unCompButt.innerText = "undone"
-        unCompButt.addEventListener('click', () => this.TasksUnComp())
+        unCompButt.addEventListener('click', () => this.tasksUnComp())
         this.container.appendChild(unCompButt)
         const allButt = document.createElement('button')
         allButt.innerText = "all"
@@ -62,6 +66,7 @@ class ToDo {
         this.container.appendChild(search)
         const searchButt = document.createElement('button')
         searchButt.innerText = 'search'
+        searchButt.addEventListener('click', () => this.findTask(search.value))
         this.container.appendChild(searchButt)
     }
 }
