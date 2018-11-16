@@ -10,12 +10,12 @@ class ToDo {
     }
 
     loadTasks() { // doesnt work well, doesnt show tasks after f5
-        return JSON.parse(localStorage.getItem('tasks'));
+        return JSON.parse(window.localStorage.getItem('tasks'));
 
     }
 
     saveTasks() {
-        localStorage.setItem('tasks', JSON.stringify(this.tasks))
+        window.localStorage.setItem('tasks', JSON.stringify(this.tasks))
     }
 
     addTask(text) {
@@ -40,7 +40,7 @@ class ToDo {
             butt.innerText = 'remove'
             list.appendChild(listitem)
             list.appendChild(butt);
-            listitem.addEventListener('click', function () { // text-decoration vanish when we remove other task or add new one
+            listitem.addEventListener('click', function () { 
                 if (task.isCompleted === true) {
                     task.isCompleted = false
                     this.style.textDecoration = "none"
@@ -48,7 +48,13 @@ class ToDo {
                     task.isCompleted = true
                     this.style.textDecoration = "line-through"
                 }
+                
             })
+            if (task.isCompleted === true) {
+                listitem.style.textDecoration = "line-through"
+            } else {
+                listitem.style.textDecoration = "none"
+            }
             butt.addEventListener("click", () => {
                 this.tasks.splice(i, 1);
                 this.saveTasks();
@@ -59,11 +65,11 @@ class ToDo {
         this.container.appendChild(list)
     }
     tasksUnComp() { //doesnt work 
-        const unCompTasks = this.tasks.filter(task => task.isCompleted === false)
+        const unCompTasks = this.tasks.map(task => task.isCompleted === false)
         this.render(unCompTasks)
     }
     tasksComp() { //doesnt work 
-        const compTasks = this.tasks.filter(task => task.isCompleted === true)
+        const compTasks = this.tasks.map(task => task.isCompleted === true)
         this.render(compTasks)
     }
     findTask(value) {
@@ -110,7 +116,6 @@ class ToDo {
 class Task {
     constructor(text) {
         this.text = text
-        this.isCompleted = false
 
     }
 }
