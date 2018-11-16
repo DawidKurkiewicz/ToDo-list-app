@@ -11,21 +11,26 @@ class ToDo {
     addTask(text) {
         this.tasks.push(new Task(text))
         this.render()
+
     }
     render() {
-        this.container.innerHTML = ''
+        this.renderElements()
 
+    }
+
+    renderElements() {
+        this.container.innerHTML = ''
         this.elements()
         const list = document.createElement('ul')
         this.tasks.forEach((task, i) => {
             const listitem = document.createElement('li')
             listitem.innerText = task.text
-            localStorage.setItem(i, task)
+            localStorage.setItem(i, task) //doesnt work well
             const butt = document.createElement('button')
             butt.innerText = 'remove'
             list.appendChild(listitem)
             list.appendChild(butt);
-            listitem.addEventListener('click', function () {
+            listitem.addEventListener('click', function () { // text-decoration vanish when we remove other task or add new one 
                 if (task.isCompleted === true) {
                     task.isCompleted = false
                     this.style.textDecoration = "none"
@@ -36,13 +41,24 @@ class ToDo {
             })
             butt.addEventListener("click", () => {
                 this.tasks.splice(i, 1);
-                localStorage.removeItem(i)
+                localStorage.removeItem(i) //doesnt work well
                 this.render();
             })
 
         })
         this.container.appendChild(list)
     }
+    taskComp (){
+
+    }
+    taskUnComp(){
+
+    }
+    findTask(){
+        
+    }
+
+
     elements() {
         const input = document.createElement('input')
         this.container.appendChild(input)
@@ -52,11 +68,11 @@ class ToDo {
         this.container.appendChild(addTaskButt)
         const compButt = document.createElement('button')
         compButt.innerText = "done"
-        compButt.addEventListener('click', () => this.tasksComp())
+        // compButt.addEventListener('click', () => this.tasksComp()) // need to write function 
         this.container.appendChild(compButt)
         const unCompButt = document.createElement('button')
         unCompButt.innerText = "undone"
-        unCompButt.addEventListener('click', () => this.tasksUnComp())
+        // unCompButt.addEventListener('click', () => this.tasksUnComp()) // need to write function 
         this.container.appendChild(unCompButt)
         const allButt = document.createElement('button')
         allButt.innerText = "all"
@@ -66,14 +82,13 @@ class ToDo {
         this.container.appendChild(search)
         const searchButt = document.createElement('button')
         searchButt.innerText = 'search'
-        searchButt.addEventListener('click', () => this.findTask(search.value))
+        // searchButt.addEventListener('click', () => this.findTask(search.value)) // need to write function 
         this.container.appendChild(searchButt)
     }
 }
 class Task {
     constructor(text) {
         this.text = text
-        this.isCompleted = false
     }
 }
 const ToDo1 = new ToDo()
