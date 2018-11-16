@@ -65,11 +65,11 @@ class ToDo {
         this.container.appendChild(list)
     }
     tasksUnComp() { //doesnt work 
-        const unCompTasks = this.tasks.map(task => task.isCompleted === false)
+        const unCompTasks = this.tasks.filter(task => task.isCompleted === false)
         this.render(unCompTasks)
     }
     tasksComp() { //doesnt work 
-        const compTasks = this.tasks.map(task => task.isCompleted === true)
+        const compTasks = this.tasks.filter(task => task.isCompleted === true)
         this.render(compTasks)
     }
     findTask(value) {
@@ -116,6 +116,7 @@ class ToDo {
 class Task {
     constructor(text) {
         this.text = text
+        this.isCompleted = false
 
     }
 }
