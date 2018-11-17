@@ -1,10 +1,8 @@
 class ToDo {
     constructor(container) {
         this.tasks = JSON.parse(window.localStorage.getItem('tasks')) || []
-        this.compTasks = [] // dont know i need this
-        this.unCompTasks = [] // dont know i need this
+        
         this.container = document.querySelector(container) || document.body
-        this.render()
         this.init()
 
     }
@@ -81,7 +79,7 @@ class ToDo {
     }
     findTask(value) {
         const tasks = this.loadTasks()
-        this.tasks = tasks.filter(task => task.text === value)
+        this.tasks = tasks.filter(task => task.text.replace(/\s/g, '').toLowerCase().includes(value.replace(/\s/g, '').toLowerCase()))
         this.render()
     }
     resetSearch() {
