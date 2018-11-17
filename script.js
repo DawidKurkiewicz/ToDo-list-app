@@ -8,6 +8,8 @@ class ToDo {
     }
     init() {
         this.render()
+        
+        
     }
 
     loadTasks() {
@@ -29,6 +31,7 @@ class ToDo {
     }
     render() {
         this.renderElements()
+        
     }
 
     renderElements() {
@@ -47,6 +50,7 @@ class ToDo {
                     task.isCompleted = false
                     this.style.textDecoration = "none"
 
+
                 } else {
                     task.isCompleted = true
                     this.style.textDecoration = "line-through"
@@ -56,8 +60,10 @@ class ToDo {
 
             if (task.isCompleted === true) {
                 listitem.style.textDecoration = "line-through"
+
             } else {
                 listitem.style.textDecoration = "none"
+
             }
 
             butt.addEventListener("click", () => {
@@ -89,32 +95,35 @@ class ToDo {
     }
     elements() {
         const input = document.createElement('input')
-        this.container.appendChild(input)
-        const addTaskButt = document.createElement('button')
-        addTaskButt.innerText = 'add task'
-        addTaskButt.addEventListener('click', () => this.addTask(input.value))
-        this.container.appendChild(addTaskButt)
         const compButt = document.createElement('button')
-        compButt.innerText = "done"
-        compButt.addEventListener('click', () => this.tasksComp())
-        this.container.appendChild(compButt)
+        const addTaskButt = document.createElement('button')
         const unCompButt = document.createElement('button')
-        unCompButt.innerText = "undone"
-        unCompButt.addEventListener('click', () => this.tasksUnComp())
-        this.container.appendChild(unCompButt)
         const allButt = document.createElement('button')
-        allButt.innerText = "all"
-        allButt.addEventListener('click', () => this.render())
-        this.container.appendChild(allButt)
         const search = document.createElement('input')
-        this.container.appendChild(search)
         const searchButt = document.createElement('button')
-        searchButt.innerText = 'search'
-        searchButt.addEventListener('click', () => this.findTask(search.value))
-        this.container.appendChild(searchButt)
         const resetButt = document.createElement('button')
+
+        addTaskButt.innerText = 'add task'
+        compButt.innerText = "done"
+        unCompButt.innerText = "undone"
+        allButt.innerText = "all"
+        searchButt.innerText = 'search'
         resetButt.innerText = 'reset'
+
+        addTaskButt.addEventListener('click', () => this.addTask(input.value))
+        compButt.addEventListener('click', () => this.tasksComp())
+        unCompButt.addEventListener('click', () => this.tasksUnComp())
+        allButt.addEventListener('click', () => this.render())
+        searchButt.addEventListener('click', () => this.findTask(search.value))
         resetButt.addEventListener('click', () => this.resetSearch())
+
+        this.container.appendChild(input)
+        this.container.appendChild(addTaskButt)
+        this.container.appendChild(compButt)
+        this.container.appendChild(unCompButt)
+        this.container.appendChild(allButt)
+        this.container.appendChild(search)
+        this.container.appendChild(searchButt)
         this.container.appendChild(resetButt)
     }
 }
@@ -125,4 +134,4 @@ class Task {
 
     }
 }
-const ToDo1 = new ToDo()
+const toDo1 = new ToDo()
