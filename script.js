@@ -1,16 +1,20 @@
 class ToDo {
     constructor(container) {
-        this.tasks = []
+        this.tasks = JSON.parse(window.localStorage.getItem('tasks')) || []
+        this.compTasks = [] // dont know i need this
+        this.unCompTasks = [] // dont know i need this
         this.container = document.querySelector(container) || document.body
         this.render()
         this.init()
+
     }
     init() {
         this.render()
     }
 
-    loadTasks() { // doesnt work well, doesnt show tasks after f5
-        return JSON.parse(window.localStorage.getItem('tasks'));
+    loadTasks() {
+        return JSON.parse(window.localStorage.getItem('tasks'))
+
 
     }
 
@@ -40,45 +44,48 @@ class ToDo {
             butt.innerText = 'remove'
             list.appendChild(listitem)
             list.appendChild(butt);
-            listitem.addEventListener('click', function () { 
+            listitem.addEventListener('click', function () {
                 if (task.isCompleted === true) {
                     task.isCompleted = false
                     this.style.textDecoration = "none"
+
                 } else {
                     task.isCompleted = true
                     this.style.textDecoration = "line-through"
                 }
-                
+
             })
+
             if (task.isCompleted === true) {
                 listitem.style.textDecoration = "line-through"
             } else {
                 listitem.style.textDecoration = "none"
             }
+
             butt.addEventListener("click", () => {
-                this.tasks.splice(i, 1);
-                this.saveTasks();
-                this.render();
+                this.tasks.splice(i, 1)
+                this.saveTasks()
+                this.render()
             })
 
         })
         this.container.appendChild(list)
     }
     tasksUnComp() { //doesnt work 
-        const unCompTasks = this.tasks.filter(task => task.isCompleted === false)
+        const unCompTasks = this.tasks.filter((task) => task.isCompleted === false)
         this.render(unCompTasks)
     }
     tasksComp() { //doesnt work 
-        const compTasks = this.tasks.filter(task => task.isCompleted === true)
+        const compTasks = this.tasks.filter((task) => task.isCompleted === true)
         this.render(compTasks)
     }
     findTask(value) {
-        const tasks = this.loadTasks();
+        const tasks = this.loadTasks()
         this.tasks = tasks.filter(task => task.text === value)
         this.render()
     }
     resetSearch() {
-        const tasks = this.loadTasks();
+        const tasks = this.loadTasks()
         this.tasks = tasks;
         this.render();
     }
