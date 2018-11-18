@@ -1,39 +1,27 @@
 class ToDo {
     constructor(container) {
         this.tasks = JSON.parse(window.localStorage.getItem('tasks')) || []
-        
         this.container = document.querySelector(container) || document.body
         this.init()
-
     }
     init() {
-        this.render()
-        
-        
+        this.render()   
     }
-
     loadTasks() {
         return JSON.parse(window.localStorage.getItem('tasks'))
-
-
     }
-
     saveTasks() {
         window.localStorage.setItem('tasks', JSON.stringify(this.tasks))
     }
-
     addTask(text) {
         const task = new Task(text)
         this.tasks.push(task)
         this.saveTasks()
         this.render()
-
     }
     render(array) {
         this.renderElements(array)
-        
     }
-
     renderElements(array) {
         this.container.innerHTML = ''
         array = array || this.tasks
@@ -50,36 +38,29 @@ class ToDo {
                 if (task.isCompleted === true) {
                     task.isCompleted = false
                     this.style.textDecoration = "none"
-
-
                 } else {
                     task.isCompleted = true
                     this.style.textDecoration = "line-through"
                 }
             })
-
             if (task.isCompleted === true) {
                 listitem.style.textDecoration = "line-through"
-
             } else {
                 listitem.style.textDecoration = "none"
-
             }
-
             butt.addEventListener("click", () => {
                 this.tasks.splice(i, 1)
                 this.saveTasks()
                 this.render()
             })
-
         })
         this.container.appendChild(list)
     }
-    tasksUnComp() { //doesnt work 
+    tasksUnComp() { 
         const unCompTasks = this.tasks.filter((task) => task.isCompleted === false)
         this.render(unCompTasks)
     }
-    tasksComp() { //doesnt work 
+    tasksComp() { 
         const compTasks = this.tasks.filter((task) => task.isCompleted === true)
         this.render(compTasks)
     }
@@ -131,7 +112,6 @@ class Task {
     constructor(text) {
         this.text = text
         this.isCompleted = false
-
     }
 }
 const toDo1 = new ToDo()
