@@ -29,16 +29,17 @@ class ToDo {
         this.render()
 
     }
-    render() {
-        this.renderElements()
+    render(array) {
+        this.renderElements(array)
         
     }
 
-    renderElements() {
+    renderElements(array) {
         this.container.innerHTML = ''
+        array = array || this.tasks
         this.elements()
         const list = document.createElement('ul')
-        this.tasks.forEach((task, i) => {
+        array.forEach((task, i) => {
             const listitem = document.createElement('li')
             listitem.innerText = task.text
             const butt = document.createElement('button')
@@ -55,7 +56,6 @@ class ToDo {
                     task.isCompleted = true
                     this.style.textDecoration = "line-through"
                 }
-
             })
 
             if (task.isCompleted === true) {
