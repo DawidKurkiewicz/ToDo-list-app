@@ -34,14 +34,16 @@ class ToDo {
             butt.innerText = 'remove'
             list.appendChild(listitem)
             list.appendChild(butt);
-            listitem.addEventListener('click', function () {
+            listitem.addEventListener('click', () => {
                 if (task.isCompleted === true) {
                     task.isCompleted = false
-                    this.style.textDecoration = "none"
+                    listitem.style.textDecoration = "none"
                 } else {
                     task.isCompleted = true
-                    this.style.textDecoration = "line-through"
+                    listitem.style.textDecoration = "line-through"
                 }
+                this.saveTasks()
+
             })
             if (task.isCompleted === true) {
                 listitem.style.textDecoration = "line-through"
