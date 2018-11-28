@@ -1,3 +1,4 @@
+(function () {
 class ToDo {
     constructor(container) {
         this.tasks = JSON.parse(window.localStorage.getItem('tasks')) || []
@@ -116,4 +117,5 @@ class Task {
         this.isCompleted = false
     }
 }
-const toDo1 = new ToDo()
+window.ToDo = ToDo
+})()
